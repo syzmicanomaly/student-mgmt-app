@@ -24,7 +24,7 @@ public class DemoConfig {
 	public CommandLineRunner testDataPopulator() {
 		return args -> {
 			studentManagementService.createStudent(new Student("ryan@hardwyred.net", "Ryan", "Hardy", LocalDate.of(1976, 8, 8)));
-			studentManagementService.createStudent(new Student("homer@springfield.doh", "Homer", "Simpson", LocalDate.of(1956, 5, 12)));
+			studentManagementService.createStudent(new Student("doh@springfield.org", "Homer", "Simpson", LocalDate.of(1956, 5, 12)));
 			studentManagementService.createStudent(new Student("dude@abides.ca", "Jeff", "Lebowski", LocalDate.of(1942, 12, 4)));
 		};
 	}

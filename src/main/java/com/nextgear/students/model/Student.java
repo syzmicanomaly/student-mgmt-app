@@ -2,6 +2,7 @@ package com.nextgear.students.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.nextgear.students.utils.DateUtils;
+import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,7 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.Locale;
 import java.util.Objects;
 
 /**
@@ -91,6 +91,19 @@ public class Student {
 
 	public void setBirthDate(final Date birthDate) {
 		this.birthDate = birthDate;
+	}
+
+	@Override
+	public String toString() {
+		final StringBuilder bldr = new StringBuilder();
+		if (StringUtils.isNotBlank(getFirstName())) {
+			bldr.append(getFirstName()).append(" ");
+		}
+		if (StringUtils.isNotBlank(getLastName())) {
+			bldr.append(getLastName()).append(" ");
+		}
+		bldr.append("(").append(getEmail()).append(")");
+		return bldr.toString();
 	}
 
 	@Override
