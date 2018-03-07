@@ -11,9 +11,12 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 /**
  * @author Ryan Hardy
  */
-@SpringBootApplication(scanBasePackages = {"com.nextgear.students.app", "com.nextgear.students.db.impl", "com.nextgear.students.rest"})
-@EnableJpaRepositories(basePackages = {"com.nextgear.students.db.impl"})
-@EntityScan(basePackages = {"com.nextgear.students.model"})
+@SpringBootApplication(scanBasePackages = {
+	"com.nextgear.students.app", "com.nextgear.students.db.impl",
+	"com.nextgear.students.rest", "com.nextgear.students.web"
+})
+@EnableJpaRepositories(basePackages = { "com.nextgear.students.db.impl" })
+@EntityScan(basePackages = { "com.nextgear.students.model" })
 public class NextGearStudentApp {
 	private static final Logger LOGGER = LoggerFactory.getLogger(NextGearStudentApp.class);
 

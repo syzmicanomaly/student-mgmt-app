@@ -1,10 +1,16 @@
 buildscript {
     repositories {
         mavenCentral()
+        maven { url = "https://plugins.gradle.org/m2/" }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:1.5.10.RELEASE")
     }
+}
+
+plugins {
+    id "com.moowork.node" version "1.2.0"
+    id "com.moowork.gulp" version "1.2.0"
 }
 
 group 'com.nextgear'
@@ -24,7 +30,7 @@ repositories {
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.springframework.boot:spring-boot-starter-data-jpa"
-    compile "org.springframework.boot:spring-boot-starter-data-rest"
+    //compile "org.springframework.boot:spring-boot-starter-data-rest" //TODO not using for now
 
     compile "org.springframework.boot:spring-boot-devtools"
 
@@ -32,6 +38,7 @@ dependencies {
     compile "commons-validator:commons-validator:1.4.1"
 
     compile "io.springfox:springfox-swagger2:2.8.0"
+    compile "io.springfox:springfox-data-rest:2.8.0"
     compile "io.springfox:springfox-swagger-ui:2.8.0"
 
     compile "com.h2database:h2"
@@ -44,3 +51,4 @@ dependencies {
 
 //noinspection GroovyAssignabilityCheck
 bootRun.systemProperties = System.properties //allows passing -D vars to bootRun at command line
+
