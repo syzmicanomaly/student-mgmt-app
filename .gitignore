@@ -1,15 +1,16 @@
+*.iml
+.idea/**
 logs/**
-.gradle
 build/
 classes/
 out/
-.idea/
-*.iml
 node_modules/
 cache/
 .npmrc
+.gradle
 lib
 scrap
+package-lock.json
 
 # Ignore Gradle GUI config
 gradle-app.setting

@@ -3,7 +3,7 @@ var
     gulpSequence = require('gulp-sequence')
 ;
 
-gulp.task('build:production', function (cb) {
-    process.env.NODE_ENV = 'production'; //TODO: not sure what this is for (copied in from gulp_starter project)
-    gulpSequence('clean', 'webpack', cb);
+gulp.task('build', function (cb) {
+    process.env.NODE_ENV = 'production'; //TODO set via build params
+    gulpSequence(/*'clean', */'webpack', cb); //TODO fix clean
 });

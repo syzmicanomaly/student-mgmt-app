@@ -4,48 +4,34 @@
  */
 var
     path = require("path"),
-    webpack = require("webpack")
+    webpack = require("webpack"),
+    config = require("../config")
 ;
 
-var config = require("../config")(env);
-
+//TODO read through docs for new Webpack config options
 var webpackConfig = {
-
-    context: config.jsSource,
-    entry: {
-        //TODO
-    },
+    entry: './src/main/js/app.jsx',
+    mode: 'development', //TODO set via build params
+    devtool: 'source-map',
     output: {
-        path: config.jsBuild,
-        filename: '[name].bundle.js'/*,
-			library:       '[name]'*/
+        path: path.resolve(config.buildDir),
+        filename: 'bundle.js'
     },
     module: {
-        loaders: []
+        rules: [
+            {
+                test: /\.jsx?$/,
+                exclude: /(node_modules)/,
+                loader: 'babel-loader',
+                query: {
+                    cacheDirectory: true,
+                    presets: ['es2015', 'react']
+                }
+            }
+        ]
     },
-    devtool: "source-map",
     plugins: []
 };
-
-// Factor out common dependencies into a shared.js
-webpackConfig.plugins.push(new webpack.optimize.CommonsChunkPlugin({
-    name: 'shared',
-    filename: 'shared.js'
-}));
-
-webpackConfig.devtool = 'source-map';
-webpack.debug = true;
-
-webpackConfig.plugins.push(
-    new webpack.DefinePlugin({
-        'process.env': {
-            'NODE_ENV': JSON.stringify('production')
-        }
-    }),
-    new webpack.optimize.DedupePlugin(),
-    new webpack.optimize.UglifyJsPlugin(),
-    new webpack.NoErrorsPlugin()
-);
 
 module.exports = webpackConfig;
 

@@ -1,0 +1,26 @@
+{
+  "name": "nextgear-coding-test",
+  "version": "1.0.0",
+  "description": "NextGear Capital - Student Management Service",
+  "author": "Ryan Hardy",
+  "dependencies": {
+    "copy": "^0.3.1",
+    "del": "~1.2.0",
+    "gulp": "^3.9.1",
+    "gulp-notify": "~2.2.0",
+    "gulp-sequence": "~0.4.5",
+    "gulp-task-listing": "~1.0.1",
+    "gulp-watch": "^5.0.0",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "require-dir": "0.3.2",
+    "webpack": "4.1.0"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-loader": "7.1.4",
+    "babel-polyfill": "6.26.0",
+    "babel-preset-es2015": "6.24.1",
+    "babel-preset-react": "6.24.1"
+  }
+}

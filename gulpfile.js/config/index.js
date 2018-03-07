@@ -19,9 +19,11 @@ if (!process.env.build_dir) {
 var
     output = true,
     rootDir = path.normalize(process.env.root_dir),
-    sourceDir = path.join(rootDir, "/src/main/resources/js"),
+    //TODO pull these out, send in as params (centralize in build.gradle)
+    sourceDir = path.join(rootDir, "/src/main/js"),
     buildDir = path.join(rootDir, process.env.build_dir, "webpack/resources/js"),
     config = {
+        rootDir: rootDir,
         sourceDir: sourceDir,
         buildDir: buildDir,
 

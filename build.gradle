@@ -52,3 +52,48 @@ dependencies {
 //noinspection GroovyAssignabilityCheck
 bootRun.systemProperties = System.properties //allows passing -D vars to bootRun at command line
 
+project.task([type: Class.forName('com.moowork.gradle.node.task.NodeTask'), group: 'gulp'], 'execGulp') {
+    args = [
+            '--root-dir',
+            project.projectDir.absolutePath,
+            '--task',
+            safeGetProperty(project, 'gulpTask', 'default')
+    ]
+    script = project.file('gulpfile.js')
+}
+
+project.task([type: Class.forName('com.moowork.gradle.node.task.NodeTask'), group: 'gulp'], 'watchGulp') {
+    args = [
+            '--root-dir',
+            project.projectDir.absolutePath,
+            '--task',
+            'watch'
+    ]
+    script = project.file('gulpfile.js')
+}
+
+//TODO get rid of this by passing in DO_COPY in node env (handled in webpack.js task)
+task copyWebpackResources(description: 'Copies all generated Webpack files', dependsOn: ['execGulp']) {
+    doLast {
+        copy {
+            from "${project.buildDir}/webpack/resources"
+            into "${project.buildDir}/resources/main/static"
+        }
+    }
+}
+
+project.tasks['execGulp'].dependsOn 'installGulp'
+project.tasks['installGulp'].dependsOn 'npmInstall'
+project.tasks['classes'].dependsOn 'execGulp'
+project.tasks['copyWebpackResources'].mustRunAfter 'processResources'
+project.tasks['bootRun'].dependsOn 'copyWebpackResources'
+project.tasks['build'].dependsOn 'copyWebpackResources'
+
+static String safeGetProperty(Project proj, String property, String defValue) {
+    try {
+        def val = proj.property(property)
+        return val
+    } catch (ignored) {
+        return defValue
+    }
+}
