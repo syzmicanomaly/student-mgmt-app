@@ -1,0 +1,26 @@
+.student-detail-header {
+    font-weight: bold;
+    padding-bottom: 3px;
+    margin-bottom: 15px;
+    border-bottom: 1px #99AA99 solid;
+}
+
+.student-header-cell {
+    cursor: pointer;
+}
+
+.student-detail {
+    margin-bottom: 10px;
+    padding: 7px;
+    border: 2px #DEDEDE solid;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.student-detail.active {
+    background-color: #EFEFEF;
+}
+
+.edit-btn {
+    margin-right: 10px;
+}

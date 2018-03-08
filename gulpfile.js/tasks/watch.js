@@ -17,6 +17,8 @@ gulp.task('watch', function () {
             console.log("Reloading files: " + files);
             cb(files);
         });
+        //TODO make this a cmd line flag?
+        cb(files);
     }
 
     doWatch(config.jsSource, "/**/*.js", function (js) {
@@ -27,21 +29,13 @@ gulp.task('watch', function () {
         process.env.DO_COPY = true; // will prompt copy of resources to proper build dir
         gulp.start('webpack');
     });
-
-    //TODO add support for watching other files
-
-    //doWatch(config.cssSource, "/**/*.css", function (css) {
-    //	gulp.start('css');
-    //});
-    //
-    //doWatch(config.hbsSource, "/**/*.hbs", function (hbs) {
-    //	console.log("Writing HBS files to: " + config.hbsBuild);
-    //	gulp.src(hbs).pipe(gulp.dest(config.hbsBuild));
-    //});
-    //
-    //doWatch(config.templateSource, "/**/*.html", function (templates) {
-    //	console.log("Writing template files to: " + config.templateBuild);
-    //	gulp.src(templates).pipe(gulp.dest(config.templateBuild));
-    //});
+    doWatch(config.htmlSource, "/**/*.html", function (html) {
+    	console.log("Writing HTML files to: " + config.htmlBuild);
+    	gulp.src(html).pipe(gulp.dest(config.htmlBuild));
+    });
+    doWatch(config.cssSource, "/**/*.css", function (css) {
+        console.log("Writing CSS files to: " + config.cssBuild);
+        gulp.src(css).pipe(gulp.dest(config.cssBuild));
+    });
 
 });

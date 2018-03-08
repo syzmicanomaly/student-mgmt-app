@@ -17,6 +17,9 @@ var webpackConfig = {
         path: path.resolve(config.buildDir),
         filename: 'bundle.js'
     },
+    externals: {
+        jquery: 'jQuery'
+    },
     module: {
         rules: [
             {

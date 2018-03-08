@@ -20,16 +20,27 @@ var
     output = true,
     rootDir = path.normalize(process.env.root_dir),
     //TODO pull these out, send in as params (centralize in build.gradle)
-    sourceDir = path.join(rootDir, "/src/main/js"),
-    buildDir = path.join(rootDir, process.env.build_dir, "webpack/resources/js"),
+    htmlSource = path.join(rootDir, "src/main/resources/static"),
+    htmlBuild = path.join(rootDir, process.env.build_dir, "resources/main/static"),
+
+    cssSource = path.join(rootDir, "src/main/resources/static/css"),
+    cssBuild = path.join(rootDir, process.env.build_dir, "resources/main/static/css"),
+
+    jsSource = path.join(rootDir, "/src/main/js"),
+    jsBuild = path.join(rootDir, process.env.build_dir, "webpack/resources/js"),
+
     config = {
         rootDir: rootDir,
-        sourceDir: sourceDir,
-        buildDir: buildDir,
+        sourceDir: jsSource,
+        buildDir: jsBuild,
 
-        jsSource: sourceDir,
+        htmlSource: htmlSource,
+        cssSource: cssSource,
+        jsSource: jsSource,
 
-        jsBuild: buildDir,
+        htmlBuild: htmlBuild,
+        cssBuild: cssBuild,
+        jsBuild: jsBuild,
         resourceMain: path.join(process.env.build_dir, "resources")
     }
 ;
