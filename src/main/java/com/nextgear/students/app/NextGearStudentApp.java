@@ -9,6 +9,8 @@ import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 /**
+ * Main entry point and config for Spring Boot application.
+ *
  * @author Ryan Hardy
  */
 @SpringBootApplication(scanBasePackages = {

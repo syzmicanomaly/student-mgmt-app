@@ -1,15 +1,15 @@
 *.iml
-.idea/**
-logs/**
-build/
-classes/
-out/
-node_modules/
-cache/
+/.idea/**
+/logs/**
+/build/**
+/classes/**
+/out/**
+/node_modules/**
+/cache/**
+/lib/**
+/scrap/**
 .npmrc
 .gradle
-lib
-scrap
 package-lock.json
 
 # Ignore Gradle GUI config

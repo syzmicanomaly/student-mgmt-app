@@ -5,7 +5,17 @@ const
     Modal = require("react-modal")
 ;
 
+/**
+ * React.js UI component that serves as base class for app dialogs.
+ *
+ * @author Ryan Hardy
+ */
 class StudentDialog extends React.Component {
+    /**
+     * @param props
+     * @param props.onCancel
+     * @param props.executeText
+     */
     constructor(props) {
         super(props);
     }

@@ -14,6 +14,8 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
+ * Student entity class.
+ *
  * @author Ryan Hardy
  */
 @Entity

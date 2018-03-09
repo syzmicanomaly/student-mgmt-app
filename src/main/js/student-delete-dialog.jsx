@@ -4,6 +4,11 @@ const
     StudentDialog = require("./student-dialog.jsx")
 ;
 
+/**
+ * React.js UI component for Delete Student dialog.
+ *
+ * @author Ryan Hardy
+ */
 class DeleteDialog extends React.Component {
     /**
      * @param props

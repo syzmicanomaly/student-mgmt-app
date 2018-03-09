@@ -3,6 +3,14 @@ const
     React = require("react")
 ;
 
+/**
+ * React.js UI component for rendering success/error messages.
+ *
+ * @param props
+ * @return {*}
+ * @constructor
+ * @author Ryan Hardy
+ */
 function StudentMessage(props) {
     if (!props.successMessage && !props.errorMessage) {
         return null;
@@ -10,7 +18,10 @@ function StudentMessage(props) {
     const
         className = "alert " + (props.successMessage ? "alert-success" : "alert-danger"),
         message = props.successMessage || props.errorMessage,
-        onClose = props.onClose
+        onClose = function(e) {
+            e.preventDefault();
+            props.onClose();
+        }
     ;
     return (
         <div className={className} role="alert">

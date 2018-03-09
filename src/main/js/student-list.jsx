@@ -4,6 +4,11 @@ const
     StudentAddRow  = require("./student-add-row.jsx")
 ;
 
+/**
+ * React.js UI component for rendering list of Student detail rows.
+ *
+ * @author Ryan Hardy
+ */
 class StudentList extends React.Component {
     constructor(props) {
         super(props);

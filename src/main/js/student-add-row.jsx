@@ -1,5 +1,10 @@
 const React        = require("react");
 
+/**
+ * React.js UI component for triggering Create Student dialog.
+ *
+ * @author Ryan Hardy
+ */
 class StudentAddRow extends React.Component {
     /**
      * @param {{}} props

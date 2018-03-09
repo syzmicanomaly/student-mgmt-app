@@ -2,9 +2,13 @@ const
     React        = require("react"),
     EditControls = require("./student-edit-controls.jsx"),
     Utils        = require("./utils")
-
 ;
 
+/**
+ * React.js UI component for displaying Student details in list.
+ *
+ * @author Ryan Hardy
+ */
 class StudentDetails extends React.Component {
     /**
      * @param {{}} props

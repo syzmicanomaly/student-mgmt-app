@@ -5,13 +5,17 @@ const
     StudentDialog = require("./student-dialog.jsx")
 ;
 
+/**
+ * React.js UI component for Update Student dialog.
+ *
+ * @author Ryan Hardy
+ */
 class EditDialog extends React.Component {
     constructor(props) {
         super(props);
     }
 
     render() {
-        // noinspection JSUnresolvedVariable
         const
             props        = this.props,
             label        = props.label,

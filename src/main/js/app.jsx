@@ -15,6 +15,7 @@ const
 // noinspection JSUnresolvedFunction
 Modal.setAppElement("#react");
 
+// styles used for app dialogs
 const modalStyles = {
     content: {
         top: "40%",
@@ -26,6 +27,11 @@ const modalStyles = {
     }
 };
 
+/**
+ * Main entry point for React.js UI.
+ *
+ * @author Ryan Hardy
+ */
 class App extends React.Component {
 
     constructor(props) {
@@ -57,6 +63,11 @@ class App extends React.Component {
         StudentApi.getAllStudents().done(onComplete);
     }
 
+    /**
+     * Is called to reset app state, optionally setting additional state in the process
+     *
+     * @param {Function|{}} [additionalState]   object or callback used to set additional state
+     */
     resetState(additionalState) {
         const defaultState = {
             isCreateActive: false,
@@ -79,6 +90,7 @@ class App extends React.Component {
     }
 
     /**
+     * Callback for Ajax errors.
      *
      * @param jqXHR
      * @param textStatus
@@ -91,8 +103,10 @@ class App extends React.Component {
         });
     }
 
-    clearMessages(e) {
-        e.preventDefault();
+    /**
+     * Clears current success/error message(s) in UI.
+     */
+    clearMessages() {
         this.setState({
             successMessage: null,
             errorMessage: null
@@ -103,7 +117,7 @@ class App extends React.Component {
     // Create UI calls
 
     /**
-     *
+     * Shows the Create Student dialog.
      */
     showCreate() {
         this.setState({
@@ -112,6 +126,11 @@ class App extends React.Component {
         });
     }
 
+    /**
+     * Makes API call to create Student.
+     *
+     * @param student
+     */
     doCreate(student) {
         const onCreate = (function (created) {
             this.resetState((prevState, props) => ({
@@ -128,6 +147,9 @@ class App extends React.Component {
         // @formatter:on
     }
 
+    /**
+     * Closes Create Student dialog.
+     */
     cancelCreate() {
         this.setState({
             isCreateActive: false,
@@ -139,6 +161,7 @@ class App extends React.Component {
     // Update UI calls
 
     /**
+     * Shows Update Student dialog.
      *
      * @param student
      */
@@ -149,6 +172,11 @@ class App extends React.Component {
         });
     }
 
+    /**
+     * Makes API call to update student.
+     *
+     * @param student
+     */
     doUpdate(student) {
         const onUpdate = (function (updated) {
             this.resetState((prevState, props) => ({
@@ -165,6 +193,9 @@ class App extends React.Component {
         // @formatter:on
     }
 
+    /**
+     * Closes Update Student dialog.
+     */
     cancelUpdate() {
         this.setState({
             isUpdateActive: false,
@@ -176,6 +207,7 @@ class App extends React.Component {
     // Delete UI calls
 
     /**
+     * Shows Delete Student dialog.
      *
      * @param student
      */
@@ -186,6 +218,9 @@ class App extends React.Component {
         });
     }
 
+    /**
+     * Makes API call to delete current student.
+     */
     doDelete() {
         const
             student  = this.state.currentStudent,
@@ -204,6 +239,9 @@ class App extends React.Component {
         // @formatter:on
     }
 
+    /**
+     * Closes Delete Student dialog.
+     */
     cancelDelete() {
         this.setState({
             isDeleteActive: false,

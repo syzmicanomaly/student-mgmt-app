@@ -22,6 +22,8 @@ import java.util.Date;
 import java.util.List;
 
 /**
+ * Service facade for management of {@link Student} entities.
+ *
  * @author Ryan Hardy
  */
 @Service
@@ -36,6 +38,12 @@ public class StudentManagementService {
 		this.userRepo = userRepo;
 	}
 
+	/**
+	 * Fetches all Students from DB.
+	 *
+	 * @return list of all Students
+	 * @throws PersistenceException if any DB errors occur
+	 */
 	public List<Student> getAllStudents() throws PersistenceException {
 		final Iterable<Student> all;
 		try {
@@ -49,6 +57,15 @@ public class StudentManagementService {
 		return students;
 	}
 
+	/**
+	 * Creates a new Student in DB.
+	 *
+	 * @param student Student to create
+	 * @return newly created Student instance
+	 * @throws InvalidStudentException       if any property is missing/invalid on Student
+	 * @throws StudentAlreadyExistsException if any unique property on Student already exists in DB
+	 * @throws PersistenceException          if any DB errors occur
+	 */
 	public Student createStudent(final Student student) throws InvalidStudentException, StudentAlreadyExistsException, PersistenceException {
 		try {
 			validateStudent(student);
@@ -61,7 +78,7 @@ public class StudentManagementService {
 		try {
 			saved = this.userRepo.save(student);
 			LOGGER.info("Created new Student: {}", saved);
-		} catch (final EntityExistsException|ConstraintViolationException|DataIntegrityViolationException e) {
+		} catch (final EntityExistsException | ConstraintViolationException | DataIntegrityViolationException e) {
 			//TODO email is only unique constraint (currently) - need better reporting of failed constraint
 			LOGGER.error("Can not create Student, Student already exists with email: " + student.getEmail(), e);
 			throw new StudentAlreadyExistsException("Can not create Student, Student already exists with email: " + student.getEmail(), e);
@@ -81,6 +98,15 @@ public class StudentManagementService {
 		return saved;
 	}
 
+	/**
+	 * Updates an already existing Student.
+	 *
+	 * @param student Student to update
+	 * @return updated Student
+	 * @throws InvalidStudentException       if any property is missing/invalid on Student
+	 * @throws StudentAlreadyExistsException if any unique property on Student already exists in DB
+	 * @throws PersistenceException          if any DB errors occur
+	 */
 	public Student updateStudent(final Student student) throws InvalidStudentException, StudentAlreadyExistsException, PersistenceException {
 		try {
 			validateStudent(student);
@@ -96,7 +122,7 @@ public class StudentManagementService {
 
 			updated = this.userRepo.save(student);
 			LOGGER.info("Updated Student: {}", updated);
-		} catch (final EntityExistsException|ConstraintViolationException|DataIntegrityViolationException e) {
+		} catch (final EntityExistsException | ConstraintViolationException | DataIntegrityViolationException e) {
 			//TODO email is only unique constraint (currently) - need better reporting of failed constraint
 			LOGGER.error("Can not update Student, Student already exists with email: " + student.getEmail(), e);
 			throw new StudentAlreadyExistsException("Can not update Student, Student already exists with email: " + student.getEmail(), e);
@@ -121,7 +147,14 @@ public class StudentManagementService {
 		return updated;
 	}
 
-	public void deleteStudentBybId(final Long id) throws IllegalArgumentException, PersistenceException {
+	/**
+	 * Deletes Student with given persistence id. Will ignore call if no Student is found with provided id.
+	 *
+	 * @param id id of Student to delete
+	 * @throws IllegalArgumentException if id is null
+	 * @throws PersistenceException     if any DB errors occur
+	 */
+	public void deleteStudentById(final Long id) throws IllegalArgumentException, PersistenceException {
 		Assert.notNull(id, "Student id is required for call to delete");
 
 		try {
@@ -135,6 +168,9 @@ public class StudentManagementService {
 		}
 	}
 
+	/**
+	 * Performs validation on given Student.
+	 */
 	private void validateStudent(final Student student) {
 		Assert.notNull(student, "Student object is required");
 

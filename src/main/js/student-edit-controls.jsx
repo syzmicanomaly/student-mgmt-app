@@ -3,6 +3,7 @@ const
 ;
 
 /**
+ * React.js UI component that renders buttons for editing/deleting a student.
  *
  * @param props
  * @param props.isActive
@@ -10,6 +11,7 @@ const
  * @param props.deleteStudent
  * @return {*}
  * @constructor
+ * @author Ryan Hardy
  */
 function EditControls(props) {
     return (

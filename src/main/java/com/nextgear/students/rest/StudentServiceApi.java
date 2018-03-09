@@ -24,6 +24,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Spring REST API controller - exposes operations on {@link StudentManagementService}.
+ *
+ * @author Ryan Hardy
+ */
 @RestController
 @RequestMapping("student")
 @Api("/student")
@@ -87,8 +92,8 @@ public class StudentServiceApi {
 
 	@ApiOperation(value = "Deletes existing Student", response = ResponseEntity.class)
 	@RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-	public ResponseEntity<String> deleteStudentBybId(@PathVariable("id") final Long id) throws PersistenceException {
-		studentManagementService.deleteStudentBybId(id);
+	public ResponseEntity<String> deleteStudentById(@PathVariable("id") final Long id) throws PersistenceException {
+		studentManagementService.deleteStudentById(id);
 		return new ResponseEntity<>("Student was deleted successfully", HttpStatus.OK);
 	}
 

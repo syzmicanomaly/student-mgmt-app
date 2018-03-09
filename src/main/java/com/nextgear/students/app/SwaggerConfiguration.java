@@ -14,6 +14,11 @@ import java.util.Collections;
 
 import static springfox.documentation.builders.PathSelectors.regex;
 
+/**
+ * Spring config for enabling Swagger in application.
+ *
+ * @author Ryan Hardy
+ */
 @Configuration
 @EnableSwagger2
 @Profile("swagger")

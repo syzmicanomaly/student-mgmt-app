@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--suppress CheckTagEmptyBody -->
+<configuration scan="true" scanPeriod="30 seconds">
+
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <!-- 2012-08-21 14:00:00,176 WARN Message -->
+        <encoder>
+            <pattern>%d %-5p %m :%c [%t]%n</pattern>
+        </encoder>
+    </appender>
+
+    <!-- Buffered non-blocking appender for performance b/c wrapper can be slow -->
+    <appender name="async-console" class="ch.qos.logback.classic.AsyncAppender">
+        <queueSize>16</queueSize><!-- 128 log events -->
+        <neverBlock>true</neverBlock> <!-- causes messages to be dropped when buffer is full -->
+
+        <appender-ref ref="console" />
+    </appender>
+
+    <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>logs/nextgear-student-mgmt.log</file>
+
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>logs/nextgear-student-mgmt.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>30</maxHistory> <!-- 30 days history -->
+            <totalSizeCap>10GB</totalSizeCap>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>%d %-5p %m :%c [%t]%n</pattern>
+        </encoder>
+
+    </appender>
+
+    <logger name="com.nextgear"></logger>
+    <logger name="org.springframework" level="INFO"></logger>
+    <logger name="com.fasterxml" level="WARN"></logger>
+
+    <root level="INFO">
+        <appender-ref ref="async-console" />
+        <appender-ref ref="file" />
+    </root>
+
+</configuration>

@@ -5,6 +5,11 @@ const
 
 const StudentApi = {};
 
+/**
+ * Executes API call to fetch all students.
+ *
+ * @return {Promise}
+ */
 StudentApi.getAllStudents = function () {
     return $.ajax({
         url: "/student/all",
@@ -12,6 +17,12 @@ StudentApi.getAllStudents = function () {
     });
 };
 
+/**
+ * Executes API call to create new student.
+ *
+ * @param student
+ * @return {Promise}
+ */
 StudentApi.createStudent = function (student) {
     return $.ajax({
         url: "/student/create",
@@ -22,6 +33,12 @@ StudentApi.createStudent = function (student) {
     });
 };
 
+/**
+ * Executes API call to delete student.
+ *
+ * @param student
+ * @return {Promise}
+ */
 StudentApi.deleteStudent = function (student) {
     student || Utils.die("Can not delete student, student object is null");
 
@@ -31,6 +48,12 @@ StudentApi.deleteStudent = function (student) {
     });
 };
 
+/**
+ * Executes API call to update existing student.
+ *
+ * @param student
+ * @return {Promise}
+ */
 StudentApi.updateStudent = function (student) {
     return $.ajax({
         url: "/student/update",

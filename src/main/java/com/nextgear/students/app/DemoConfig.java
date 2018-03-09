@@ -9,6 +9,11 @@ import org.springframework.context.annotation.Profile;
 
 import java.time.LocalDate;
 
+/**
+ * Spring config for loading demo data (alsoe does create-drop on DB).
+ *
+ * @author Ryan Hardy
+ */
 @Configuration
 @Profile("demo")
 public class DemoConfig {
