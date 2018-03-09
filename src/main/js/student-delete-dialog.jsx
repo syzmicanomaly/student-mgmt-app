@@ -5,6 +5,14 @@ const
 ;
 
 class DeleteDialog extends React.Component {
+    /**
+     * @param props
+     * @param props.isActive
+     * @param props.modalStyles
+     * @param props.student
+     * @param props.student.firstName
+     * @param props.student.lastName
+     */
     constructor(props) {
         super(props);
     }
@@ -13,13 +21,16 @@ class DeleteDialog extends React.Component {
         const
             props        = this.props,
             isActive     = props.isActive,
-            customStyles = props.modalStyles,
+            customStyles = $.extend(true, {}, props.modalStyles),
             onCancel     = props.cancelDelete,
             onExecute    = props.doDelete,
             student      = props.student || {},
             firstName    = student.firstName,
             lastName     = student.lastName
         ;
+
+        // ensure dialog renders higher up in screen
+        customStyles.content.top = "30%";
 
         return (
             <StudentDialog

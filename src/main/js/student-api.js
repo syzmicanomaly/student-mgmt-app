@@ -5,29 +5,20 @@ const
 
 const StudentApi = {};
 
-function convertDate(birthDate) {
-    return "1976-08-08";
-}
-
 StudentApi.getAllStudents = function () {
     return $.ajax({
         url: "/student/all",
-        method: "GET"/*,
-        dataFilter: function (students) {
-            const json = JSON.parse(students);
-            $.each(json, function (i, student) {
-                student.birthDate = convertDate(student.birthDate);
-            });
-            return JSON.stringify(json);
-        }
-*/    });
+        method: "GET"
+    });
 };
 
 StudentApi.createStudent = function (student) {
     return $.ajax({
         url: "/student/create",
         method: "POST",
-        data: student
+        contentType: "application/json",
+        processData: false,
+        data: JSON.stringify(student)
     });
 };
 

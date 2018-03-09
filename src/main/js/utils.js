@@ -18,6 +18,7 @@ Utils.bind = function (ctx) {
     const fns = Array.prototype.slice.call(arguments, 1);
     $.each(fns, function (i, fnName) {
         const fn    = ctx[fnName];
+        fn || Utils.die("No function found with name: " + fnName);
         ctx[fnName] = fn.bind(ctx);
     });
 };

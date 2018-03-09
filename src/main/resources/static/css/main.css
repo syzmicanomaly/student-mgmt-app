@@ -1,3 +1,17 @@
+body {
+    padding-top: 70px;
+}
+
+.main-content {
+    min-height: 740px;
+}
+
+@media (max-width: 992px) {
+    body {
+        padding-top: 70px;
+    }
+}
+
 .student-detail-header {
     font-weight: bold;
     padding-bottom: 3px;
@@ -6,7 +20,12 @@
 }
 
 .student-header-cell {
-    cursor: pointer;
+
+}
+
+.student-add-cell {
+    min-height: 1.5em;
+    color: #989292;
 }
 
 .student-detail {
@@ -25,9 +44,16 @@
     margin-right: 10px;
 }
 
-@media (min-width: 700px) {
-    .edit-form {
+@media (min-width: 768px) {
+    .student-form {
         width: 500px;
     }
 }
+
+@media (max-width: 768px) {
+    .student-edit-controls {
+        padding-top: 15px;
+    }
+}
+
 

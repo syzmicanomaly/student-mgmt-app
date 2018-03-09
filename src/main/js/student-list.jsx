@@ -1,6 +1,7 @@
 const
     React          = require("react"),
-    StudentDetails = require("./student-details.jsx")
+    StudentDetails = require("./student-details.jsx"),
+    StudentAddRow  = require("./student-add-row.jsx")
 ;
 
 class StudentList extends React.Component {
@@ -10,8 +11,9 @@ class StudentList extends React.Component {
 
     render() {
         const
-            students = this.props.students,
-            showEdit = this.props.showEdit,
+            students   = this.props.students,
+            showCreate = this.props.showCreate,
+            showUpdate = this.props.showUpdate,
             showDelete = this.props.showDelete
         ;
         return (
@@ -23,13 +25,20 @@ class StudentList extends React.Component {
                     <div className={'student-header-cell col-md-3'}>Birthdate</div>
                     <div className={'student-header-cell col-md-2'}>&nbsp;</div>
                 </div>
+
                 {students.map((student) =>
                     <StudentDetails
                         key={student.id}
                         student={student}
-                        editStudent={() => { showEdit(student) }}
-                        deleteStudent={() => { showDelete(student)}} />
+                        editStudent={() => {
+                            showUpdate(student)
+                        }}
+                        deleteStudent={() => {
+                            showDelete(student)
+                        }}/>
                 )}
+
+                <StudentAddRow addStudent={showCreate}/>
             </div>
         )
     }

@@ -17,7 +17,7 @@ Modal.setAppElement("#react");
 
 const modalStyles = {
     content: {
-        top: "50%",
+        top: "40%",
         left: "50%",
         right: "auto",
         bottom: "auto",
@@ -32,7 +32,7 @@ class App extends React.Component {
         super(props);
         this.state = {
             students: [],
-            isEditActive: false,
+            isUpdateActive: false,
             isDeleteActive: false,
             currentStudent: null,
             errorMessage: null,
@@ -40,22 +40,42 @@ class App extends React.Component {
         };
 
         Utils.bind(this,
-            "loadStudents", "resetState", "onError", "onSuccess",
-            "updateStudent", "deleteStudent", "showEdit", "showDelete",
-            "cancelDelete", "doDelete", "cancelUpdate", "doUpdate", "clearMessages"
+            "resetState", "onError",  "clearMessages",
+            "showCreate", "doCreate", "cancelCreate",
+            "showUpdate", "doUpdate", "cancelUpdate",
+            "showDelete", "doDelete", "cancelDelete"
         );
     }
 
     componentDidMount() {
-        StudentApi.getAllStudents().done(this.loadStudents);
+        const onComplete = (function (students) {
+            this.setState({
+                students: students
+            });
+        }).bind(this);
+
+        StudentApi.getAllStudents().done(onComplete);
     }
 
-    resetState() {
-        this.setState({
-            isEditActive: false,
+    resetState(additionalState) {
+        const defaultState = {
+            isCreateActive: false,
+            isUpdateActive: false,
             isDeleteActive: false,
             currentStudent: null
-        });
+        };
+        if (typeof additionalState === "function") {
+            this.setState(function(prevState, props) {
+                let state = additionalState(prevState, props);
+                state = $.extend({}, defaultState, state);
+                return state;
+            });
+        } else if (typeof additionalState === "object") {
+            const state = $.extend({}, defaultState, additionalState);
+            this.setState(state);
+        } else {
+            this.setState(defaultState);
+        }
     }
 
     /**
@@ -65,38 +85,73 @@ class App extends React.Component {
      * @param error
      */
     onError(jqXHR, textStatus, error) {
-        this.setState({
-            errorMessage: error
+        // noinspection JSUnresolvedVariable
+        this.resetState({
+            errorMessage: jqXHR.responseJSON.message
         });
     }
 
-    /**
-     *
-     * @param message
-     */
-    onSuccess(message) {
+    clearMessages(e) {
+        e.preventDefault();
         this.setState({
-            successMessage: message
-        });
+            successMessage: null,
+            errorMessage: null
+        })
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Create UI calls
 
     /**
      *
-     * @param students
      */
-    loadStudents(students) {
+    showCreate() {
         this.setState({
-            students: students
+            isCreateActive: true,
+            currentStudent: null
         });
     }
+
+    doCreate(student) {
+        const onCreate = (function (created) {
+            this.resetState((prevState, props) => ({
+                students: prevState.students.concat(created),
+                successMessage: "Student has been created"
+            }));
+        }).bind(this);
+
+        // @formatter:off
+        StudentApi.createStudent(student).
+            done(onCreate).
+            fail(this.onError)
+        ;
+        // @formatter:on
+    }
+
+    cancelCreate() {
+        this.setState({
+            isCreateActive: false,
+            currentStudent: null
+        });
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Update UI calls
 
     /**
      *
      * @param student
      */
-    updateStudent(student) {
+    showUpdate(student) {
+        this.setState({
+            isUpdateActive: true,
+            currentStudent: student
+        });
+    }
+
+    doUpdate(student) {
         const onUpdate = (function (updated) {
-            this.setState((prevState, props) => ({
+            this.resetState((prevState, props) => ({
                 students: Utils.replace(prevState.students, prevState.currentStudent, updated),
                 successMessage: "Student has been updated"
             }));
@@ -105,45 +160,20 @@ class App extends React.Component {
         // @formatter:off
         StudentApi.updateStudent(student).
             done(onUpdate).
-            fail(this.onError).
-            always(this.resetState)
+            fail(this.onError)
         ;
         // @formatter:on
-
     }
 
-    /**
-     *
-     * @param student
-     */
-    deleteStudent(student) {
-        const onDelete = (function () {
-            this.setState((prevState, props) => ({
-                students: prevState.students.filter(toChk => toChk.id !== student.id),
-                successMessage: "Student has been deleted"
-            }));
-        }).bind(this);
-
-        // @formatter:off
-        StudentApi.deleteStudent(student).
-            done(onDelete).
-            fail(this.onError).
-            always(this.resetState)
-        ;
-        // @formatter:on
-
-    }
-
-    /**
-     *
-     * @param student
-     */
-    showEdit(student) {
+    cancelUpdate() {
         this.setState({
-            isEditActive: true,
-            currentStudent: student
+            isUpdateActive: false,
+            currentStudent: null
         });
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+    // Delete UI calls
 
     /**
      *
@@ -157,7 +187,21 @@ class App extends React.Component {
     }
 
     doDelete() {
-        this.deleteStudent(this.state.currentStudent);
+        const
+            student  = this.state.currentStudent,
+            onDelete = (function () {
+                this.resetState((prevState, props) => ({
+                    students: prevState.students.filter(toChk => toChk.id !== student.id),
+                    successMessage: "Student has been deleted"
+                }));
+            }).bind(this);
+
+        // @formatter:off
+        StudentApi.deleteStudent(student).
+            done(onDelete).
+            fail(this.onError)
+        ;
+        // @formatter:on
     }
 
     cancelDelete() {
@@ -167,24 +211,7 @@ class App extends React.Component {
         });
     }
 
-    doUpdate(student) {
-        this.updateStudent(student);
-    }
-
-    cancelUpdate() {
-        this.setState({
-            isEditActive: false,
-            currentStudent: null
-        });
-    }
-
-    clearMessages(e) {
-        e.preventDefault();
-        this.setState({
-            successMessage: null,
-            errorMessage: null
-        })
-    }
+    // -----------------------------------------------------------------------------------------------------------------
 
     render() {
         return (
@@ -195,18 +222,33 @@ class App extends React.Component {
                             <StudentMessage
                                 successMessage={this.state.successMessage}
                                 errorMessage={this.state.errorMessage}
-                                onClose={this.clearMessages}
-                            />
+                                onClose={this.clearMessages}/>
                         </div>
                     </div>
                     <div className={'row'}>
                         <div className={'col-md-12'}>
                             <StudentList
                                 students={this.state.students}
-                                showEdit={this.showEdit}
+                                showCreate={this.showCreate}
+                                showUpdate={this.showUpdate}
                                 showDelete={this.showDelete}/>
                         </div>
                     </div>
+
+                    <EditDialog
+                        label={"Create"}
+                        modalStyles={modalStyles}
+                        isActive={this.state.isCreateActive}
+                        execute={this.doCreate}
+                        cancel={this.cancelCreate}/>
+
+                    <EditDialog
+                        label={"Update"}
+                        modalStyles={modalStyles}
+                        isActive={this.state.isUpdateActive}
+                        student={this.state.currentStudent}
+                        execute={this.doUpdate}
+                        cancel={this.cancelUpdate}/>
 
                     <DeleteDialog
                         modalStyles={modalStyles}
@@ -215,12 +257,6 @@ class App extends React.Component {
                         doDelete={this.doDelete}
                         cancelDelete={this.cancelDelete}/>
 
-                    <EditDialog
-                        modalStyles={modalStyles}
-                        isActive={this.state.isEditActive}
-                        student={this.state.currentStudent}
-                        doUpdate={this.doUpdate}
-                        cancelUpdate={this.cancelUpdate}/>
                 </div>
             </div>
         )

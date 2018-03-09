@@ -1,9 +1,9 @@
+// noinspection JSUnusedLocalSymbols
 const
     $     = require("jquery"),
     React = require("react"),
     Modal = require("react-modal")
 ;
-
 
 class StudentDialog extends React.Component {
     constructor(props) {
@@ -17,9 +17,11 @@ class StudentDialog extends React.Component {
             modalTitle   = props.title,
             customStyles = props.modalStyles,
             onCancel     = props.onCancel,
-            onExecute    = props.onExecute,
             executeText  = props.executeText,
-            student      = props.student || {}
+            onExecute    = function(e) {
+                e.preventDefault();
+                props.onExecute();
+            }
         ;
 
         return (
@@ -40,27 +42,28 @@ class StudentDialog extends React.Component {
                             <span aria-hidden="true">×</span>
                         </button>
                     </div>
-                    <div className={"modal-body"}>
-                        {props.children}
-                    </div>
-                    <div className={"modal-footer"}>
+                    <form className={"student-form"} onSubmit={onExecute}>
+                        <div className={"modal-body"}>
+                            {props.children}
+                        </div>
+                        <div className={"modal-footer"}>
 
-                        <button
-                            onClick={onCancel}
-                            type="button"
-                            className={"btn btn-secondary"}
-                            data-dismiss="modal">
-                            Cancel
-                        </button>
+                            <button
+                                onClick={onCancel}
+                                type="button"
+                                className={"btn btn-secondary"}
+                                data-dismiss="modal">
+                                Cancel
+                            </button>
 
-                        <button
-                            onClick={onExecute}
-                            type="button"
-                            className={"btn btn-primary"}>
-                            {executeText}
-                        </button>
+                            <button
+                                type="submit"
+                                className={"btn btn-primary"}>
+                                {executeText}
+                            </button>
 
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </Modal>
         );
