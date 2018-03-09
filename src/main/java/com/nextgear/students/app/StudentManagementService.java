@@ -18,6 +18,7 @@ import javax.persistence.EntityExistsException;
 import javax.persistence.TransactionRequiredException;
 import javax.validation.ConstraintViolationException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -61,14 +62,20 @@ public class StudentManagementService {
 			saved = this.userRepo.save(student);
 			LOGGER.info("Created new Student: {}", saved);
 		} catch (final EntityExistsException|ConstraintViolationException|DataIntegrityViolationException e) {
-			LOGGER.error("Can not create Student, Student to create is not unique.", e);
-			throw new StudentAlreadyExistsException("Student is not unique", e);
+			//TODO email is only unique constraint (currently) - need better reporting of failed constraint
+			LOGGER.error("Can not create Student, Student already exists with email: " + student.getEmail(), e);
+			throw new StudentAlreadyExistsException("Can not create Student, Student already exists with email: " + student.getEmail(), e);
+
 		} catch (final TransactionRequiredException e) {
+
 			LOGGER.error("Can not create Student, no transaction found.", e);
 			throw new PersistenceException("Can not create Student, no transaction found.", e);
+
 		} catch (final RuntimeException e) {
+
 			LOGGER.error("Can not create Student, an error occurred.", e);
 			throw new PersistenceException("Can not create Student, an error occurred.", e);
+
 		}
 
 		return saved;
@@ -90,17 +97,25 @@ public class StudentManagementService {
 			updated = this.userRepo.save(student);
 			LOGGER.info("Updated Student: {}", updated);
 		} catch (final EntityExistsException|ConstraintViolationException|DataIntegrityViolationException e) {
-			LOGGER.error("Can not update Student, Student already exists with provided data.", e);
-			throw new StudentAlreadyExistsException("Can not update Student, Student already exists with provided data.", e);
+			//TODO email is only unique constraint (currently) - need better reporting of failed constraint
+			LOGGER.error("Can not update Student, Student already exists with email: " + student.getEmail(), e);
+			throw new StudentAlreadyExistsException("Can not update Student, Student already exists with email: " + student.getEmail(), e);
+
 		} catch (final IllegalArgumentException e) {
+
 			LOGGER.error("Can not update Student", e);
 			throw new InvalidStudentException("Can not update Student: " + e.getMessage());
+
 		} catch (final TransactionRequiredException e) {
+
 			LOGGER.error("Can not update Student, no transaction found.", e);
 			throw new PersistenceException("Can not update Student, no transaction found.", e);
+
 		} catch (final RuntimeException e) {
+
 			LOGGER.error("Can not update Student, an error occurred.", e);
 			throw new PersistenceException("Can not update Student, an error occurred.", e);
+
 		}
 
 		return updated;
@@ -132,5 +147,6 @@ public class StudentManagementService {
 		Assert.hasLength(student.getLastName().trim(), "Student last must not be empty string");
 
 		Assert.notNull(student.getBirthDate(), "Student birth date is required");
+		Assert.isTrue(student.getBirthDate().before(new Date()), "Student birth date must be a date in the past");
 	}
 }
