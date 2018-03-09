@@ -17,12 +17,12 @@ Modal.setAppElement("#react");
 
 const modalStyles = {
     content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
+        top: "50%",
+        left: "50%",
+        right: "auto",
+        bottom: "auto",
+        marginRight: "-50%",
+        transform: "translate(-50%, -50%)"
     }
 };
 
@@ -95,15 +95,16 @@ class App extends React.Component {
      * @param student
      */
     updateStudent(student) {
-        const onUpdate = (function () {
-            this.onSuccess("Student has been updated");
+        const onUpdate = (function (updated) {
+            this.setState((prevState, props) => ({
+                students: Utils.replace(prevState.students, prevState.currentStudent, updated),
+                successMessage: "Student has been updated"
+            }));
         }).bind(this);
 
         // @formatter:off
         StudentApi.updateStudent(student).
-            done(function () {
-                StudentApi.getAllStudents().done(onUpdate);
-            }).
+            done(onUpdate).
             fail(this.onError).
             always(this.resetState)
         ;
@@ -166,8 +167,8 @@ class App extends React.Component {
         });
     }
 
-    doUpdate() {
-        this.updateStudent(this.state.currentStudent);
+    doUpdate(student) {
+        this.updateStudent(student);
     }
 
     cancelUpdate() {
