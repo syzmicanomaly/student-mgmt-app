@@ -1,4 +1,4 @@
-package com.nextgear.students.app;
+package com.syzmicanomaly.students.app;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,7 +28,7 @@ public class SwaggerConfiguration {
 	public Docket api() {
 		return new Docket(DocumentationType.SWAGGER_2).
 				select().
-				apis(RequestHandlerSelectors.basePackage("com.nextgear.students.rest")).
+				apis(RequestHandlerSelectors.basePackage("com.syzmicanomaly.students.rest")).
 				paths(regex("/student.*")).
 				build().
 				apiInfo(metaData())
@@ -37,7 +37,7 @@ public class SwaggerConfiguration {
 
 	private ApiInfo metaData() {
 		final ApiInfo apiInfo = new ApiInfo(
-				"NextGear Capital Student Management System REST API",
+				"Syzmicanomaly Student Management System REST API",
 				"Student Management System REST API",
 				"1.0.0",
 				"Terms of service",

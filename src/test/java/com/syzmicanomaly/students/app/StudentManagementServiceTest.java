@@ -1,10 +1,10 @@
-package com.nextgear.students.app;
+package com.syzmicanomaly.students.app;
 
-import com.nextgear.students.db.InvalidStudentException;
-import com.nextgear.students.db.PersistenceException;
-import com.nextgear.students.db.StudentAlreadyExistsException;
-import com.nextgear.students.model.Student;
-import com.nextgear.students.utils.DateUtils;
+import com.syzmicanomaly.students.db.InvalidStudentException;
+import com.syzmicanomaly.students.db.PersistenceException;
+import com.syzmicanomaly.students.db.StudentAlreadyExistsException;
+import com.syzmicanomaly.students.model.Student;
+import com.syzmicanomaly.students.utils.DateUtils;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,7 +32,7 @@ import static org.springframework.test.annotation.DirtiesContext.ClassMode.BEFOR
 @RunWith(SpringRunner.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.NONE)
 @Transactional(propagation = Propagation.NEVER)
-@ContextConfiguration(classes = NextGearStudentApp.class)
+@ContextConfiguration(classes = SyzmicanomalyStudentApp.class)
 @DirtiesContext(classMode = BEFORE_EACH_TEST_METHOD)
 @ActiveProfiles("demo")
 public class StudentManagementServiceTest {

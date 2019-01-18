@@ -1,6 +1,6 @@
-package com.nextgear.students.app;
+package com.syzmicanomaly.students.app;
 
-import com.nextgear.students.model.Student;
+import com.syzmicanomaly.students.model.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;

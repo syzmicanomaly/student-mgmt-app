@@ -1,7 +1,7 @@
-package com.nextgear.students.model;
+package com.syzmicanomaly.students.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.nextgear.students.utils.DateUtils;
+import com.syzmicanomaly.students.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import javax.persistence.Column;

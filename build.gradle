@@ -13,7 +13,7 @@ plugins {
     id "com.moowork.gulp" version "1.2.0"
 }
 
-group 'com.nextgear'
+group 'com.syzmicanomaly'
 version '1.0.0-SNAPSHOT'
 
 apply plugin: 'java'

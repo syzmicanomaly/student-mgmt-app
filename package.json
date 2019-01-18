@@ -1,7 +1,7 @@
 {
-  "name": "nextgear-coding-test",
+  "name": "syzmicanomaly-coding-test",
   "version": "1.0.0",
-  "description": "NextGear Capital - Student Management Service",
+  "description": "Syzmicanomaly - Student Management Service",
   "author": "Ryan Hardy",
   "dependencies": {
     "copy": "^0.3.1",
