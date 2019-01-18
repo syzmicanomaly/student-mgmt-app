@@ -1,6 +1,6 @@
-package com.nextgear.students.db;
+package com.syzmicanomaly.students.db;
 
-import com.nextgear.students.model.Student;
+import com.syzmicanomaly.students.model.Student;
 
 /**
  * Exception thrown by service methods if {@link Student} object is invalid, i.e. has bad or

@@ -18,10 +18,10 @@
     </appender>
 
     <appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <file>logs/nextgear-student-mgmt-test.log</file>
+        <file>logs/syzmicanomaly-student-mgmt-test.log</file>
 
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>logs/nextgear-student-mgmt-test.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <fileNamePattern>logs/syzmicanomaly-student-mgmt-test.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
             <maxHistory>30</maxHistory> <!-- 30 days history -->
             <totalSizeCap>2MB</totalSizeCap>
         </rollingPolicy>
@@ -32,7 +32,7 @@
 
     </appender>
 
-    <logger name="com.nextgear"></logger>
+    <logger name="com.syzmicanomaly"></logger>
     <logger name="org.springframework" level="INFO"></logger>
     <logger name="com.fasterxml" level="WARN"></logger>
     <logger name="org.h2" level="DEBUG"></logger>

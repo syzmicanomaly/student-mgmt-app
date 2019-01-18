@@ -1,10 +1,10 @@
-package com.nextgear.students.rest;
+package com.syzmicanomaly.students.rest;
 
-import com.nextgear.students.db.InvalidStudentException;
-import com.nextgear.students.db.PersistenceException;
-import com.nextgear.students.app.StudentManagementService;
-import com.nextgear.students.db.StudentAlreadyExistsException;
-import com.nextgear.students.model.Student;
+import com.syzmicanomaly.students.db.InvalidStudentException;
+import com.syzmicanomaly.students.db.PersistenceException;
+import com.syzmicanomaly.students.app.StudentManagementService;
+import com.syzmicanomaly.students.db.StudentAlreadyExistsException;
+import com.syzmicanomaly.students.model.Student;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;

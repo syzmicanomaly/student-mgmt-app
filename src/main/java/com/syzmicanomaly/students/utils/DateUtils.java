@@ -1,4 +1,4 @@
-package com.nextgear.students.utils;
+package com.syzmicanomaly.students.utils;
 
 import org.springframework.util.Assert;
 

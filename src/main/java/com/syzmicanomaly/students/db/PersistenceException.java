@@ -1,4 +1,4 @@
-package com.nextgear.students.db;
+package com.syzmicanomaly.students.db;
 
 /**
  * Exception thrown by service methods if an system error occurs in performing persistence operation.

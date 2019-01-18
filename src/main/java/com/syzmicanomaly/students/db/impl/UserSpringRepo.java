@@ -1,6 +1,6 @@
-package com.nextgear.students.db.impl;
+package com.syzmicanomaly.students.db.impl;
 
-import com.nextgear.students.model.Student;
+import com.syzmicanomaly.students.model.Student;
 import org.springframework.data.repository.CrudRepository;
 
 /**

@@ -1,10 +1,10 @@
-package com.nextgear.students.app;
+package com.syzmicanomaly.students.app;
 
-import com.nextgear.students.db.InvalidStudentException;
-import com.nextgear.students.db.PersistenceException;
-import com.nextgear.students.db.StudentAlreadyExistsException;
-import com.nextgear.students.db.impl.UserSpringRepo;
-import com.nextgear.students.model.Student;
+import com.syzmicanomaly.students.db.InvalidStudentException;
+import com.syzmicanomaly.students.db.PersistenceException;
+import com.syzmicanomaly.students.db.StudentAlreadyExistsException;
+import com.syzmicanomaly.students.db.impl.UserSpringRepo;
+import com.syzmicanomaly.students.model.Student;
 import org.apache.commons.validator.routines.EmailValidator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
